@@ -9,13 +9,13 @@ class GetPicture extends ChangeNotifier {
 
   GetPicture();
 
-  static Future<String> loadImage(BuildContext context) async {
+  static Future<String> loadImage(BuildContext context, String filename) async {
     dynamic url = await FirebaseStorage.instance
         .ref()
         .child('images')
-        .child('2020-12-12 16:02:15.611244')
+        .child(filename)
         .getDownloadURL();
-    //print('This is the ' + url.toString());
+    print('This is the ' + url.toString());
     return url;
   }
 
@@ -23,8 +23,8 @@ class GetPicture extends ChangeNotifier {
   List<Picture> _picFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Picture(
-        filename: doc.data['filename'] ?? '',
-        desc: doc.data['desc'] ?? '',
+        filename: doc.data['name'] ?? 'test',
+        desc: doc.data['desc'] ?? 'test',
       );
     }).toList();
   }

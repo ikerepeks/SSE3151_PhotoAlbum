@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_album/home/addimage.dart';
+import 'package:photo_album/home/pictureView.dart';
 import 'package:photo_album/models/picture.dart';
 import 'package:photo_album/services/pictureget.dart';
 import 'package:photo_album/services/screensize.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -23,72 +26,66 @@ class DashboardScreen extends StatelessWidget {
         backgroundColor: Colors.blue[400],
         title: Text('Home Page'),
       ),
-      body: StreamBuilder<List<Picture>>(
-        stream: GetPicture().pic,
-        builder: (context, AsyncSnapshot<List<Picture>> snapshot) {
-          if (snapshot.hasData) {
-            return Center(
-              child: Column(
+      body: StreamProvider<List<Picture>>.value(
+        value: GetPicture().pic,
+        // builder: (context, AsyncSnapshot<List<Picture>> snapshot) {
+        //   if (snapshot.hasData) {
+        // return
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              // First Column
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  // First Column
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        width: screenWidth(context, dividedBy: 2),
-                        height:
-                            screenHeightExcludingToolbar(context, dividedBy: 3),
-                        padding: EdgeInsets.all(50.0),
-                        child: Text(snapshot.toString()),
-                        // child: Image.network(
-                        //   snapshot.data.toString(),
-                        //   fit: BoxFit.cover,
-                        //)
-                      ),
-                      Container(
-                          width: screenWidth(context, dividedBy: 2),
-                          height: screenHeightExcludingToolbar(context,
-                              dividedBy: 3),
-                          padding: EdgeInsets.all(50.0),
-                          child: Image.network(
-                            snapshot.data.toString(),
-                            fit: BoxFit.cover,
-                          ))
-                    ],
-                  ),
-                  // Second Column
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                          width: screenWidth(context, dividedBy: 2),
-                          height: screenHeightExcludingToolbar(context,
-                              dividedBy: 3),
-                          padding: EdgeInsets.all(50.0),
-                          child: Image.network(
-                            snapshot.data.toString(),
-                            fit: BoxFit.cover,
-                          )),
-                      Container(
-                          width: screenWidth(context, dividedBy: 2),
-                          height: screenHeightExcludingToolbar(context,
-                              dividedBy: 3),
-                          padding: EdgeInsets.all(50.0),
-                          child: Image.network(
-                            snapshot.data.toString(),
-                            fit: BoxFit.cover,
-                          ))
-                    ],
-                  )
+                  PictureView(),
+                  Container(
+                      width: screenWidth(context, dividedBy: 2),
+                      height:
+                          screenHeightExcludingToolbar(context, dividedBy: 3),
+                      padding: EdgeInsets.all(50.0),
+                      child: Image.network(
+                        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+                        //snapshot.data.toString(),
+                        fit: BoxFit.cover,
+                      ))
                 ],
               ),
-            );
-          } else {
-            return Center(child: Text('Nothing to see here'));
-          }
-        },
+              // Second Column
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                      width: screenWidth(context, dividedBy: 2),
+                      height:
+                          screenHeightExcludingToolbar(context, dividedBy: 3),
+                      padding: EdgeInsets.all(50.0),
+                      child: Image.network(
+                        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+                        //snapshot.data.toString(),
+                        fit: BoxFit.cover,
+                      )),
+                  Container(
+                      width: screenWidth(context, dividedBy: 2),
+                      height:
+                          screenHeightExcludingToolbar(context, dividedBy: 3),
+                      padding: EdgeInsets.all(50.0),
+                      child: Image.network(
+                        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
+                        //snapshot.data.toString(),
+                        fit: BoxFit.cover,
+                      ))
+                ],
+              )
+            ],
+          ),
+        ),
       ),
+      // } else {
+      //   return Center(child: Text('Nothing to see here'));
+      // }
+      // },
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           _showSettingsPanel();
