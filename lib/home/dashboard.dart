@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_album/home/addimage.dart';
 import 'package:photo_album/home/pictureView.dart';
 import 'package:photo_album/models/picture.dart';
 import 'package:photo_album/services/pictureget.dart';
-import 'package:photo_album/services/screensize.dart';
 import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -39,43 +37,24 @@ class DashboardScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  PictureView(),
-                  Container(
-                      width: screenWidth(context, dividedBy: 2),
-                      height:
-                          screenHeightExcludingToolbar(context, dividedBy: 3),
-                      padding: EdgeInsets.all(50.0),
-                      child: Image.network(
-                        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
-                        //snapshot.data.toString(),
-                        fit: BoxFit.cover,
-                      ))
+                  PictureView(
+                    position: 0,
+                  ),
+                  PictureView(
+                    position: 1,
+                  ),
                 ],
               ),
               // Second Column
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(
-                      width: screenWidth(context, dividedBy: 2),
-                      height:
-                          screenHeightExcludingToolbar(context, dividedBy: 3),
-                      padding: EdgeInsets.all(50.0),
-                      child: Image.network(
-                        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
-                        //snapshot.data.toString(),
-                        fit: BoxFit.cover,
-                      )),
-                  Container(
-                      width: screenWidth(context, dividedBy: 2),
-                      height:
-                          screenHeightExcludingToolbar(context, dividedBy: 3),
-                      padding: EdgeInsets.all(50.0),
-                      child: Image.network(
-                        'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
-                        //snapshot.data.toString(),
-                        fit: BoxFit.cover,
-                      ))
+                  PictureView(
+                    position: 2,
+                  ),
+                  PictureView(
+                    position: 3,
+                  )
                 ],
               )
             ],

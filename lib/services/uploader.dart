@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:photo_album/services/fstoreSaver.dart';
 
 class Uploader extends StatefulWidget {
   final File file;
@@ -35,9 +36,9 @@ class _UploaderState extends State<Uploader> {
     });
 
     // store in firestore
-    photoStore
-        .document(filename)
-        .setData({'name': filename, 'desc': widget.desc});
+    // photoStore
+    //     .document(filename)
+    //     .setData({'name': filename, 'desc': widget.desc});
   }
 
   @override
@@ -55,7 +56,11 @@ class _UploaderState extends State<Uploader> {
           return Column(
             children: [
               // success
-              if (_uploadTask.isComplete) Text('Succesfull'),
+              if (_uploadTask.isComplete)
+                FStoreSaver(
+                  filename: filename,
+                  desc: widget.desc,
+                ),
               // paused
               if (_uploadTask.isPaused)
                 FlatButton(
