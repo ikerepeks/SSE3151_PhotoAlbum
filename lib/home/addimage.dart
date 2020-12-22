@@ -76,6 +76,7 @@ class _ImageCaptureState extends State<ImageCapture> {
                 });
               },
             ),
+            //Get Location Using GeoLocator
             FutureBuilder(
               future: GetLocation().determinePosition(),
               builder: (context, snapshot) {
