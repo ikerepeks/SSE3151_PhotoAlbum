@@ -19,6 +19,7 @@ class FStoreSaver extends StatelessWidget {
         .getDownloadURL();
     print('This is the ' + url.toString());
 
+    //upload to firestore
     photoStore
         .document(filename)
         .setData({'name': filename, 'desc': desc, 'url': url});

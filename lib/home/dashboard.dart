@@ -26,9 +26,6 @@ class DashboardScreen extends StatelessWidget {
       ),
       body: StreamProvider<List<Picture>>.value(
         value: GetPicture().pic,
-        // builder: (context, AsyncSnapshot<List<Picture>> snapshot) {
-        //   if (snapshot.hasData) {
-        // return
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
