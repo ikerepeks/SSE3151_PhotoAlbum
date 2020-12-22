@@ -24,6 +24,11 @@ class _DetailsState extends State<Details> {
         {'name': widget.pic.filename, 'desc': desc, 'url': widget.pic.url});
   }
 
+  void _deleteFile() async {
+    await photoStore.document(widget.pic.filename).delete();
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +44,9 @@ class _DetailsState extends State<Details> {
             ),
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {},
+              onPressed: () {
+                _deleteFile();
+              },
             )
           ],
         ),
