@@ -20,8 +20,12 @@ class _DetailsState extends State<Details> {
       Firestore.instance.collection('images');
 
   void _editDesc() {
-    photoStore.document(widget.pic.filename).setData(
-        {'name': widget.pic.filename, 'desc': desc, 'url': widget.pic.url});
+    photoStore.document(widget.pic.filename).setData({
+      'name': widget.pic.filename,
+      'desc': desc,
+      'url': widget.pic.url,
+      'location': widget.pic.location
+    });
   }
 
   void _deleteFile() async {
@@ -67,20 +71,42 @@ class _DetailsState extends State<Details> {
                   fit: BoxFit.cover,
                 ),
               ),
-              Text('Image Description',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0)),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: TextFormField(
-                  decoration:
-                      textInputDecoration.copyWith(hintText: widget.pic.desc),
-                  onChanged: (value) {
-                    setState(() {
-                      desc = value;
-                    });
-                  },
-                ),
+              //Image Description Field
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('Image Description',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0)),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      decoration: textInputDecoration.copyWith(
+                          hintText: widget.pic.desc),
+                      onChanged: (value) {
+                        setState(() {
+                          desc = value;
+                        });
+                      },
+                    ),
+                  )
+                ],
+              ),
+              //Image Location Field
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('Image Location',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.0)),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      decoration: textInputDecoration.copyWith(
+                          hintText: widget.pic.location),
+                    ),
+                  )
+                ],
               )
             ],
           ),

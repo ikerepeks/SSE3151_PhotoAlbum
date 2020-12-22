@@ -15,6 +15,7 @@ class PictureView extends StatelessWidget {
       print(element.filename);
       print(element.desc);
       print(element.url);
+      print(element.location);
     });
 
     return InkWell(

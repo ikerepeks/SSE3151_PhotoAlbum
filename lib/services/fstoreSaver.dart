@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class FStoreSaver extends StatelessWidget {
   @override
-  String filename, desc;
-  FStoreSaver({this.filename, this.desc});
+  String filename, desc, location;
+  FStoreSaver({this.filename, this.desc, this.location});
 
   final CollectionReference photoStore =
       Firestore.instance.collection('images');
@@ -20,9 +20,8 @@ class FStoreSaver extends StatelessWidget {
     print('This is the ' + url.toString());
 
     //upload to firestore
-    photoStore
-        .document(filename)
-        .setData({'name': filename, 'desc': desc, 'url': url});
+    photoStore.document(filename).setData(
+        {'name': filename, 'desc': desc, 'url': url, 'location': location});
   }
 
   Widget build(BuildContext context) {

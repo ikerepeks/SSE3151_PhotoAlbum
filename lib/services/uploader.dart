@@ -9,7 +9,8 @@ import 'package:photo_album/services/fstoreSaver.dart';
 class Uploader extends StatefulWidget {
   final File file;
   final String desc;
-  Uploader({Key key, this.file, this.desc}) : super(key: key);
+  final String location;
+  Uploader({Key key, this.file, this.desc, this.location}) : super(key: key);
 
   @override
   _UploaderState createState() => _UploaderState();
@@ -28,7 +29,6 @@ class _UploaderState extends State<Uploader> {
 
   void _startUpload() async {
     filename = DateTime.now().toString();
-
     setState(() {
       //store in firebase storage
       _uploadTask =
@@ -58,9 +58,9 @@ class _UploaderState extends State<Uploader> {
               // success
               if (_uploadTask.isComplete)
                 FStoreSaver(
-                  filename: filename,
-                  desc: widget.desc,
-                ),
+                    filename: filename,
+                    desc: widget.desc,
+                    location: widget.location),
               // paused
               if (_uploadTask.isPaused)
                 FlatButton(

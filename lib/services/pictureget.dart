@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:photo_album/models/picture.dart';
 
 class GetPicture extends ChangeNotifier {
-  final CollectionReference picCollection =
-      Firestore.instance.collection('images');
+  final Query picCollection =
+      Firestore.instance.collection('images').orderBy('name', descending: true);
 
   GetPicture();
 
@@ -14,7 +14,8 @@ class GetPicture extends ChangeNotifier {
       return Picture(
           filename: doc.data['name'] ?? 'test',
           desc: doc.data['desc'] ?? 'test',
-          url: doc.data['url'] ?? 'test');
+          url: doc.data['url'] ?? 'test',
+          location: doc.data['location'] ?? 'test');
     }).toList();
   }
 

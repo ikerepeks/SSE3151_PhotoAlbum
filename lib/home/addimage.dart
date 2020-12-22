@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_album/services/geoLocator.dart';
 import 'package:photo_album/services/uploader.dart';
 import 'package:photo_album/shared/constants.dart';
 
@@ -13,6 +15,7 @@ class ImageCapture extends StatefulWidget {
 class _ImageCaptureState extends State<ImageCapture> {
   File _imageFile;
   String desc;
+  String location;
 
   // select image via gallery/camera
   Future<void> _pickImage(ImageSource source) async {
@@ -73,9 +76,26 @@ class _ImageCaptureState extends State<ImageCapture> {
                 });
               },
             ),
+            FutureBuilder(
+              future: GetLocation().determinePosition(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  location = snapshot.data.toString();
+                  return Text(snapshot.data.toString());
+                } else {
+                  return RaisedButton(
+                    child: Text('Get Location'),
+                    onPressed: () async {
+                      GetLocation().getLocation();
+                    },
+                  );
+                }
+              },
+            ),
             Uploader(
               file: _imageFile,
               desc: desc,
+              location: location,
             )
           ]
         ],
