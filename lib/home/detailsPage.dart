@@ -59,58 +59,71 @@ class _DetailsState extends State<Details> {
         backgroundColor: Colors.blue[400],
         title: Text(widget.pic.filename),
       ),
-      body: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                width: screenHeightExcludingToolbar(context, dividedBy: 3),
-                child: Image.network(
-                  widget.pic.url,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              //Image Description Field
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+      body: ListView(
+        padding: EdgeInsets.all(30),
+        children: <Widget>[
+          Center(
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text('Image Description',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14.0)),
                   Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      decoration: textInputDecoration.copyWith(
-                          hintText: widget.pic.desc),
-                      onChanged: (value) {
-                        setState(() {
-                          desc = value;
-                        });
-                      },
+                    width: screenHeightExcludingToolbar(context, dividedBy: 3),
+                    child: Image.network(
+                      widget.pic.url,
+                      fit: BoxFit.cover,
                     ),
+                  ),
+                  //Image Description Field
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text('Image Description',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: TextFormField(
+                          decoration: textInputDecoration.copyWith(
+                              hintText: widget.pic.desc),
+                          onChanged: (value) {
+                            setState(() {
+                              desc = value;
+                            });
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  //Image Location Field
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Image Location',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14.0)),
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: TextField(
+                          enabled: false,
+                          decoration: textInputDecoration.copyWith(
+                              hintText: widget.pic.location,
+                              hintStyle: TextStyle(color: Colors.black)),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
-              //Image Location Field
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text('Image Location',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14.0)),
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      decoration: textInputDecoration.copyWith(
-                          hintText: widget.pic.location),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
